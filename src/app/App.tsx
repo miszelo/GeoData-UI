@@ -1,6 +1,6 @@
 import { Header } from "./components/Header.tsx";
 import { Footer } from "./components/Footer.tsx";
-import { Map } from "./components/Map.tsx";
+import { Map } from "./components/map/Map.tsx";
 import { MainContent } from "./styled/MainContent.ts";
 import { MapContent } from "./styled/MapContent";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

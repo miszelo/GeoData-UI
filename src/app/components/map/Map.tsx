@@ -1,9 +1,9 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { FC } from "react";
 import "leaflet/dist/leaflet.css";
-import "../../../index.css";
+import "../../../../index.css";
 import { useQuery } from "@tanstack/react-query";
-import { GeoData } from "../types/place";
+import { GeoData } from "../../types/types.ts";
 
 export const Map: FC = () => {
   const { isLoading, error, data } = useQuery({
