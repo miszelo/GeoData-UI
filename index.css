@@ -5,9 +5,6 @@ body{
 }
 
 .map {
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  text-align: center;
+  height: 30vh;
+  width: 50vw;
 }
