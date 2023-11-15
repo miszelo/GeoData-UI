@@ -1,15 +1,18 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import { FC } from "react";
 import "leaflet/dist/leaflet.css";
-import "../index.css";
+import "../../../index.css";
 
-export const MyMap: FC = () => {
+export const Map: FC = () => {
   return (
-    <div className={"myMap"}>
+    <div className={"map"}>
       <MapContainer
         center={[51.582095, 19.704675]}
         zoom={7}
-        style={{ height: "80vh", width: "200vh" }}
+        style={{
+          minHeight: "50vh",
+          minWidth: "60vw",
+        }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
