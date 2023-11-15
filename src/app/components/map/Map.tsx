@@ -1,4 +1,5 @@
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 import { FC } from "react";
 import "leaflet/dist/leaflet.css";
 import "../../../../index.css";
@@ -24,26 +25,35 @@ export const Map: FC = () => {
   const geoData: GeoData[] = data;
 
   return (
-    <MapContainer className={"map"} center={[51.582095, 19.704675]} zoom={7}>
-      {geoData.map((place) => {
-        return (
-          <Marker
-            position={{
-              lat: place.place.coordinates.latitude,
-              lng: place.place.coordinates.longitude,
-            }}
-          >
-            <Popup>
-              <h2>{place.place.name}</h2>
-              <p>Dane:</p>
-              <a>pm10: {place.pm10}</a>
-              <a>pm2.5: {place.pm25}</a>
-              <a>Wilgotność: {place.humidity}</a>
-              <a>Temperatura: {place.temperature}</a>
-            </Popup>
-          </Marker>
-        );
-      })}
+    <MapContainer
+      className={"map"}
+      center={[51.582095, 19.704675]}
+      zoom={7}
+      maxZoom={20}
+      scrollWheelZoom={true}
+    >
+      <MarkerClusterGroup>
+        {geoData.map((place, index) => {
+          return (
+            <Marker
+              key={index}
+              position={{
+                lat: place.place.coordinates.latitude,
+                lng: place.place.coordinates.longitude,
+              }}
+            >
+              <Popup>
+                <h2>{place.place.name}</h2>
+                <p>Dane:</p>
+                <p>pm10: {place.pm10}</p>
+                <p>pm2.5: {place.pm25}</p>
+                <p>Wilgotność: {place.humidity}</p>
+                <p>Temperatura: {place.temperature}</p>
+              </Popup>
+            </Marker>
+          );
+        })}
+      </MarkerClusterGroup>
 
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
