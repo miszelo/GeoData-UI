@@ -1,7 +1,7 @@
 import { MapContainer, TileLayer } from "react-leaflet";
 import { FC } from "react";
 import "leaflet/dist/leaflet.css";
-import "../myMap.css";
+import "../index.css";
 
 export const MyMap: FC = () => {
   return (
