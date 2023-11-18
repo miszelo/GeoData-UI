@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { FooterContainer } from "../styled/FooterContainer";
+import { FooterContainer } from "./FooterContainer";
 
 export const Footer: FC = () => {
   return (
