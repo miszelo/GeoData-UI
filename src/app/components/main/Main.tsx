@@ -1,6 +1,7 @@
-import { Chart } from "../chart/Chart";
+import { BarChart } from "../chart/BarChart";
 import { Map } from "../map/Map";
 import { useQuery } from "@tanstack/react-query";
+import { ChartContent } from "../chart/ChartStyles";
 
 export const fetchData = (endpoint?: string) => {
   const { isLoading, error, data } = useQuery({
@@ -23,9 +24,11 @@ export const fetchData = (endpoint?: string) => {
 export const Main = () => {
   const { isLoading, error, data } = fetchData();
   return (
-    <div>
+    <>
       <Map data={data} isLoading={isLoading} error={error} />
-      <Chart data={data} isLoading={isLoading} error={error} />
-    </div>
+      <ChartContent>
+        <BarChart data={data} isLoading={isLoading} error={error} />
+      </ChartContent>
+    </>
   );
 };

@@ -4,7 +4,7 @@ import { FC } from "react";
 import "leaflet/dist/leaflet.css";
 import "../../../../index.css";
 import { GeoData } from "../../types/types.ts";
-import { MapContent } from "./MapContent";
+import { MapContent } from "./MapStyles";
 import L from "leaflet";
 
 type props = {
