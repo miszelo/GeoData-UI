@@ -1,6 +1,6 @@
 export type GeoData = {
   place: Types;
-  timestamp: Date;
+  timestamp: string;
   pm10: number;
   pm25: number;
   humidity: number;

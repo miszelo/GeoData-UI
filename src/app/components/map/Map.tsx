@@ -7,23 +7,37 @@ import { GeoData } from "../../types/types.ts";
 import { MapContent } from "./MapContent";
 import L from "leaflet";
 
-type Props = {
-  data: GeoData[];
+type props = {
   isLoading: boolean;
   error: Error | null;
+  data: GeoData[];
 };
 
-export const Map: FC<Props> = ({ data, isLoading, error }) => {
+export const Map: FC<props> = ({ isLoading, error, data }) => {
   if (isLoading) return "Loading...";
 
   if (error) return "An error has occurred: " + error.message;
+
+  function getIconUrl(data: GeoData) {
+    return `/${
+      data.pm25 < 13
+        ? "perfect"
+        : data.pm25 < 35
+          ? "good"
+          : data.pm25 < 55
+            ? "ok"
+            : data.pm25 < 75
+              ? "bad"
+              : "worst"
+    }.png`;
+  }
 
   return (
     <MapContent>
       <MapContainer
         className={"map"}
         center={[51.582095, 19.704675]}
-        zoom={7}
+        zoom={10}
         maxZoom={20}
         scrollWheelZoom={true}
       >
@@ -39,28 +53,28 @@ export const Map: FC<Props> = ({ data, isLoading, error }) => {
                   }}
                   icon={
                     new L.Icon({
-                      iconUrl: `/${
-                        data.pm25 < 13
-                          ? "perfect"
-                          : data.pm25 < 35
-                            ? "good"
-                            : data.pm25 < 55
-                              ? "ok"
-                              : data.pm25 < 75
-                                ? "bad"
-                                : "worst"
-                      }.png`,
+                      iconUrl: getIconUrl(data),
                       iconSize: [30, 30],
                     })
                   }
                 >
                   <Popup>
-                    <h2>{data.place.name}</h2>
-                    <p>Dane:</p>
-                    <p>pm10: {data.pm10}</p>
-                    <p>pm2.5: {data.pm25}</p>
-                    <p>Wilgotność: {data.humidity}</p>
-                    <p>Temperatura: {data.temperature}</p>
+                    <h3>{data.place.name}</h3>
+                    <h4>
+                      Aktualne dane: {new Date(data.timestamp).getDate()}-
+                      {new Date(data.timestamp).getMonth()}-
+                      {new Date(data.timestamp).getFullYear()}{" "}
+                      {new Date(data.timestamp).getHours()}:
+                      {new Date(data.timestamp).getMinutes().toString()
+                        .length <= 1
+                        ? "0" + new Date(data.timestamp).getMinutes()
+                        : new Date(data.timestamp).getMinutes()}
+                    </h4>
+                    <p>PM10: {data.pm10.toPrecision(4)} µg/m³</p>
+                    <p>PM2.5: {data.pm25.toPrecision(4)} µg/m³</p>
+                    <p>Wilgotność: {data.humidity.toPrecision(4)} g/m³</p>
+                    <p>Ciśnienie: {data.pressure.toPrecision(5)} hPa</p>
+                    <p>Temperatura: {data.temperature.toPrecision(2)}°C</p>
                   </Popup>
                 </Marker>
               );
