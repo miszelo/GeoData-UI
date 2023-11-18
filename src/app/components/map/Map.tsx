@@ -3,62 +3,75 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import { FC } from "react";
 import "leaflet/dist/leaflet.css";
 import "../../../../index.css";
-import { useQuery } from "@tanstack/react-query";
 import { GeoData } from "../../types/types.ts";
+import { MapContent } from "./MapContent";
+import L from "leaflet";
 
-export const Map: FC = () => {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["currentData"],
-    queryFn: () =>
-      fetch("http://localhost:8080/api/v1/smog-data").then((response) => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      }),
-  });
+type Props = {
+  data: GeoData[];
+  isLoading: boolean;
+  error: Error | null;
+};
 
+export const Map: FC<Props> = ({ data, isLoading, error }) => {
   if (isLoading) return "Loading...";
 
   if (error) return "An error has occurred: " + error.message;
 
-  const geoData: GeoData[] = data;
-
   return (
-    <MapContainer
-      className={"map"}
-      center={[51.582095, 19.704675]}
-      zoom={7}
-      maxZoom={20}
-      scrollWheelZoom={true}
-    >
-      <MarkerClusterGroup>
-        {geoData.map((place, index) => {
-          return (
-            <Marker
-              key={index}
-              position={{
-                lat: place.place.coordinates.latitude,
-                lng: place.place.coordinates.longitude,
-              }}
-            >
-              <Popup>
-                <h2>{place.place.name}</h2>
-                <p>Dane:</p>
-                <p>pm10: {place.pm10}</p>
-                <p>pm2.5: {place.pm25}</p>
-                <p>Wilgotność: {place.humidity}</p>
-                <p>Temperatura: {place.temperature}</p>
-              </Popup>
-            </Marker>
-          );
-        })}
-      </MarkerClusterGroup>
+    <MapContent>
+      <MapContainer
+        className={"map"}
+        center={[51.582095, 19.704675]}
+        zoom={7}
+        maxZoom={20}
+        scrollWheelZoom={true}
+      >
+        <MarkerClusterGroup showCoverageOnHover={false}>
+          {data &&
+            data.map((data, index) => {
+              return (
+                <Marker
+                  key={index}
+                  position={{
+                    lat: data.place.coordinates.latitude,
+                    lng: data.place.coordinates.longitude,
+                  }}
+                  icon={
+                    new L.Icon({
+                      iconUrl: `/${
+                        data.pm25 < 13
+                          ? "perfect"
+                          : data.pm25 < 35
+                            ? "good"
+                            : data.pm25 < 55
+                              ? "ok"
+                              : data.pm25 < 75
+                                ? "bad"
+                                : "worst"
+                      }.png`,
+                      iconSize: [30, 30],
+                    })
+                  }
+                >
+                  <Popup>
+                    <h2>{data.place.name}</h2>
+                    <p>Dane:</p>
+                    <p>pm10: {data.pm10}</p>
+                    <p>pm2.5: {data.pm25}</p>
+                    <p>Wilgotność: {data.humidity}</p>
+                    <p>Temperatura: {data.temperature}</p>
+                  </Popup>
+                </Marker>
+              );
+            })}
+        </MarkerClusterGroup>
 
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-    </MapContainer>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+      </MapContainer>
+    </MapContent>
   );
 };
