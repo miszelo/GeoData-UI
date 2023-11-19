@@ -7,26 +7,34 @@ import { FC } from "react";
 type props = {
   isLoading: boolean;
   error: Error | null;
-  data: GeoData[];
+  data: GeoData[] | undefined;
 };
 
 export const BarChart: FC<props> = ({ isLoading, error, data }) => {
+  const uniqueFilter = (value, index, self) => {
+    return self.indexOf(value) === index;
+  };
+
   if (isLoading) return "Loading...";
 
   if (error) return "An error has occurred: " + error.message;
   return (
-    <Chart>
-      <Bar
-        data={{
-          labels: data.slice(0, 5).map((it) => it.place.city),
-          datasets: [
-            {
-              label: "Temperatura",
-              data: data.slice(0, 5).map((it) => it.temperature),
-            },
-          ],
-        }}
-      />
+    <Chart id={"Chart"}>
+      {data !== undefined && (
+        <Bar
+          data={{
+            labels: data
+              .map((it: GeoData) => it.timestamp)
+              .filter(uniqueFilter),
+            datasets: [
+              {
+                label: "Temperatura",
+                data: data.map((it: GeoData) => it.temperature),
+              },
+            ],
+          }}
+        />
+      )}
     </Chart>
   );
 };

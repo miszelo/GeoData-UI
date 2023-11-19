@@ -4,8 +4,9 @@ export const Chart = styled.div`
   width: 50%;
 `;
 
-export const ChartContent = styled.div`
+export const ChartContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
