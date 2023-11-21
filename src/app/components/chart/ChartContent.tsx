@@ -47,7 +47,7 @@ export const ChartContent: FC<props> = ({ cities }) => {
   }>({ label: cities[0], value: 0 });
   const [selectedType, setSelectedType] = useState(dataTypes[0]);
 
-  const { data, isLoading, error, refetch } = fetchDataBy(
+  const { data, isLoading, error } = fetchDataBy(
     "city",
     selectedOption.label,
     [selectedOption.label, selectedDate ?? new Date()],
@@ -59,7 +59,6 @@ export const ChartContent: FC<props> = ({ cities }) => {
   ) => {
     if (newValue) {
       setSelectedOption(newValue);
-      refetch();
     }
   };
 
