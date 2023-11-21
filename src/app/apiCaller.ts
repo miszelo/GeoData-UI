@@ -20,14 +20,14 @@ export const fetchData = (): UseQueryResult<
 export const fetchDataBy = (
   key: "city" | "school",
   value: string,
-  queryKey: string,
+  queryKey: [string, Date],
   date: string = new Date().toISOString().slice(0, 10),
 ): UseQueryResult<
   GeoData[],
   Register extends { defaultError: infer TError } ? TError : Error
 > => {
   return useQuery({
-    queryKey: [queryKey],
+    queryKey: queryKey,
     queryFn: async () =>
       await fetch(
         `http://localhost:8080/api/v1/smog-data/${key}/${value}?date=${date}`,

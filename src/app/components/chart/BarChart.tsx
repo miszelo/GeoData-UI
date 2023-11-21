@@ -7,11 +7,12 @@ import { FC } from "react";
 type props = {
   isLoading: boolean;
   error: Error | null;
-  data: GeoData[] | undefined;
+  data: GeoData[];
+  dataType: { label: string; value: string };
 };
 
-export const BarChart: FC<props> = ({ isLoading, error, data }) => {
-  const uniqueFilter = (value, index, self) => {
+export const BarChart: FC<props> = ({ isLoading, error, data, dataType }) => {
+  const uniqueFilter = (value: any, index: any, self: any) => {
     return self.indexOf(value) === index;
   };
 
@@ -20,7 +21,7 @@ export const BarChart: FC<props> = ({ isLoading, error, data }) => {
   if (error) return "An error has occurred: " + error.message;
   return (
     <Chart id={"Chart"}>
-      {data !== undefined && (
+      {data && (
         <Bar
           data={{
             labels: data
@@ -28,8 +29,10 @@ export const BarChart: FC<props> = ({ isLoading, error, data }) => {
               .filter(uniqueFilter),
             datasets: [
               {
-                label: "Temperatura",
-                data: data.map((it: GeoData) => it.temperature),
+                label: dataType.label,
+                data: data.map(
+                  (it: GeoData) => it[dataType.value as keyof GeoData],
+                ),
               },
             ],
           }}

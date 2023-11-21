@@ -10,3 +10,11 @@ export const ChartContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const SelectContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2rem;
+`;

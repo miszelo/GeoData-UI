@@ -3,7 +3,9 @@ import MarkerClusterGroup from "react-leaflet-cluster";
 import { FC } from "react";
 import "../../../../index.css";
 import { GeoData } from "../../types/types.ts";
+import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
+import { getIconUrl } from "./mapUtils";
 
 type props = {
   isLoading: boolean;
@@ -16,25 +18,11 @@ export const Map: FC<props> = ({ isLoading, error, data }) => {
 
   if (error) return "error";
 
-  const getIconUrl = (data: GeoData) => {
-    return `/${
-      data.pm25 < 13
-        ? "perfect"
-        : data.pm25 < 35
-          ? "good"
-          : data.pm25 < 55
-            ? "ok"
-            : data.pm25 < 75
-              ? "bad"
-              : "worst"
-    }.png`;
-  };
-
   return (
     <MapContainer
       className={"map"}
-      center={[51.582095, 19.704675]}
-      zoom={10}
+      center={[52.112795, 19.211946]}
+      zoom={6}
       maxZoom={20}
       scrollWheelZoom={true}
     >
@@ -67,8 +55,12 @@ export const Map: FC<props> = ({ isLoading, error, data }) => {
                       ? "0" + new Date(data.timestamp).getMinutes()
                       : new Date(data.timestamp).getMinutes()}
                   </h4>
-                  <p>PM10: {data.pm10.toPrecision(4)} µg/m³</p>
-                  <p>PM2.5: {data.pm25.toPrecision(4)} µg/m³</p>
+                  <p>
+                    PM10: {data.pm10.toPrecision(data.pm10 > 10 ? 4 : 3)} µg/m³
+                  </p>
+                  <p>
+                    PM2.5: {data.pm25.toPrecision(data.pm25 > 10 ? 4 : 3)} µg/m³
+                  </p>
                   <p>Wilgotność: {data.humidity.toPrecision(4)} g/m³</p>
                   <p>Ciśnienie: {data.pressure.toPrecision(5)} hPa</p>
                   <p>Temperatura: {data.temperature.toPrecision(2)}°C</p>
