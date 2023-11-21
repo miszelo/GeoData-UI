@@ -4,9 +4,10 @@ import { BarChart } from "./BarChart";
 import { fetchDataBy } from "../../apiCaller";
 import { SelectContainer } from "./ChartStyles";
 import DatePicker, { registerLocale } from "react-datepicker";
-import pl from "date-fns/locale/pl"; // the locale you want
-registerLocale("pl", pl); // register it with the name you want
+import pl from "date-fns/locale/pl";
 import "react-datepicker/dist/react-datepicker.css";
+import { dataTypes } from "./chartUtils";
+registerLocale("pl", pl);
 
 type props = {
   cities: string[];
@@ -18,28 +19,7 @@ export const ChartContent: FC<props> = ({ cities }) => {
     cities.map((it, index) => {
       return { label: it, value: index };
     });
-  const dataTypes = [
-    {
-      label: "Temperatura",
-      value: "temperature",
-    },
-    {
-      label: "Wilgotność",
-      value: "humidity",
-    },
-    {
-      label: "PM10",
-      value: "pm10",
-    },
-    {
-      label: "PM25",
-      value: "pm25",
-    },
-    {
-      label: "Ciśnienie",
-      value: "pressure",
-    },
-  ];
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [selectedOption, setSelectedOption] = useState<{
     label: string;

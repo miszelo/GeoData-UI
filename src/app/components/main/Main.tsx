@@ -17,7 +17,7 @@ export const Main = () => {
         <Map data={data} isLoading={isLoading} error={error} />
       </MapContent>
       <ChartContainer>
-        <ChartContent cities={cities} />
+        {!isLoading && <ChartContent cities={cities} />}
       </ChartContainer>
     </MainContainer>
   );
