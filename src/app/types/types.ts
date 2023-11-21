@@ -20,3 +20,8 @@ export type Coordinates = {
   latitude: number;
   longitude: number;
 };
+
+export type SelectType<T, K> = {
+  label: T;
+  value: K;
+};

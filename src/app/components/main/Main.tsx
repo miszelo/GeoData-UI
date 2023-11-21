@@ -14,7 +14,7 @@ export const Main = () => {
     <MainContainer>
       <MapContent>
         <MapTitle>Aktualne dane </MapTitle>
-        <Map data={data} isLoading={isLoading} error={error} />
+        {data && <Map data={data} isLoading={isLoading} error={error} />}
       </MapContent>
       <ChartContainer>
         {!isLoading && <ChartContent cities={cities} />}

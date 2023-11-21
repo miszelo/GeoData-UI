@@ -6,7 +6,10 @@ import { SelectContainer } from "./ChartStyles";
 import DatePicker, { registerLocale } from "react-datepicker";
 import pl from "date-fns/locale/pl";
 import "react-datepicker/dist/react-datepicker.css";
-import { dataTypes } from "./chartUtils";
+import { dataTypes } from "../../utils/chartUtils";
+import { SelectType } from "../../types/types";
+import { formatDate } from "../../utils/dateUtils";
+
 registerLocale("pl", pl);
 
 type props = {
@@ -14,40 +17,35 @@ type props = {
 };
 
 export const ChartContent: FC<props> = ({ cities }) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [selectedType, setSelectedType] = useState(dataTypes[0]);
+  const [selectedOption, setSelectedOption] = useState<
+    SelectType<string, number>
+  >({ label: cities[0], value: 0 });
+
   const cityOptions =
     cities &&
     cities.map((it, index) => {
       return { label: it, value: index };
     });
 
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [selectedOption, setSelectedOption] = useState<{
-    label: string;
-    value: number;
-  }>({ label: cities[0], value: 0 });
-  const [selectedType, setSelectedType] = useState(dataTypes[0]);
-
   const { data, isLoading, error } = fetchDataBy(
     "city",
     selectedOption.label,
     [selectedOption.label, selectedDate ?? new Date()],
-    selectedDate?.toISOString().slice(0, 10),
+    formatDate(selectedDate ?? new Date()),
   );
 
   const handleSelectCity = (
-    newValue: SingleValue<{ value: number; label: string }>,
+    newValue: SingleValue<SelectType<string, number>>,
   ) => {
-    if (newValue) {
-      setSelectedOption(newValue);
-    }
+    newValue && setSelectedOption(newValue);
   };
 
   const handleSelectType = (
-    newValue: SingleValue<{ value: string; label: string }>,
+    newValue: SingleValue<SelectType<string, string>>,
   ) => {
-    if (newValue) {
-      setSelectedType(newValue);
-    }
+    newValue && setSelectedType(newValue);
   };
 
   return (

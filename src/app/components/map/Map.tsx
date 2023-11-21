@@ -4,14 +4,13 @@ import { FC } from "react";
 import "../../../../index.css";
 import { GeoData } from "../../types/types.ts";
 import "leaflet/dist/leaflet.css";
-import { Icon } from "leaflet";
-import { getIconUrl } from "./mapUtils";
+import { getIcon } from "../../utils/mapUtils";
 import { formatDate } from "../../utils/stringUtils";
 
 type props = {
   isLoading: boolean;
   error: Error | null;
-  data?: GeoData[];
+  data: GeoData[];
 };
 
 export const Map: FC<props> = ({ isLoading, error, data }) => {
@@ -37,12 +36,7 @@ export const Map: FC<props> = ({ isLoading, error, data }) => {
                   lat: data.place.coordinates.latitude,
                   lng: data.place.coordinates.longitude,
                 }}
-                icon={
-                  new Icon({
-                    iconUrl: getIconUrl(data),
-                    iconSize: [30, 30],
-                  })
-                }
+                icon={getIcon(data)}
               >
                 <Popup>
                   <h3>{data.place.name}</h3>

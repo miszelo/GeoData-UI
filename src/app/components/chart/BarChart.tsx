@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { GeoData } from "../../types/types";
 import { FC } from "react";
-import { filterRepeatedDates } from "./chartUtils";
+import { filterRepeatedDates } from "../../utils/chartUtils";
 
 type props = {
   isLoading: boolean;
