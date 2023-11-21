@@ -10,7 +10,7 @@ import { formatDate } from "../../utils/stringUtils";
 type props = {
   isLoading: boolean;
   error: Error | null;
-  data: GeoData[];
+  data?: GeoData[];
 };
 
 export const Map: FC<props> = ({ isLoading, error, data }) => {

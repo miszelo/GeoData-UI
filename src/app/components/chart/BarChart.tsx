@@ -18,23 +18,21 @@ export const BarChart: FC<props> = ({ isLoading, error, data, dataType }) => {
   if (error) return "An error has occurred: " + error.message;
   return (
     <Chart id={"Chart"}>
-      {data && (
-        <Bar
-          data={{
-            labels: data
-              .map((it: GeoData) => it.timestamp)
-              .filter(filterRepeatedDates),
-            datasets: [
-              {
-                label: dataType.label,
-                data: data.map(
-                  (it: GeoData) => it[dataType.value as keyof GeoData],
-                ),
-              },
-            ],
-          }}
-        />
-      )}
+      <Bar
+        data={{
+          labels: data
+            .map((it: GeoData) => it.timestamp)
+            .filter(filterRepeatedDates),
+          datasets: [
+            {
+              label: dataType.label,
+              data: data.map(
+                (it: GeoData) => it[dataType.value as keyof GeoData],
+              ),
+            },
+          ],
+        }}
+      />
     </Chart>
   );
 };

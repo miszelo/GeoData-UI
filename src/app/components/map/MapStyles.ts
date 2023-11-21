@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const MapContent = styled.div`
+export const MapContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

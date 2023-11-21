@@ -18,3 +18,5 @@ export const SelectContainer = styled.div`
   align-items: center;
   column-gap: 2rem;
 `;
+
+export const ChartTitle = styled.h3``;
