@@ -8,7 +8,7 @@ import pl from "date-fns/locale/pl";
 import "react-datepicker/dist/react-datepicker.css";
 import { dataTypes } from "../../utils/chartUtils";
 import { SelectType } from "../../types/types";
-import { formatDate } from "../../utils/dateUtils";
+import { formatDateToMMDDYYYYFormat } from "../../utils/dateUtils";
 
 registerLocale("pl", pl);
 
@@ -33,7 +33,7 @@ export const ChartContent: FC<props> = ({ cities }) => {
     "city",
     selectedOption.label,
     [selectedOption.label, selectedDate ?? new Date()],
-    formatDate(selectedDate ?? new Date()),
+    formatDateToMMDDYYYYFormat(selectedDate ?? new Date()),
   );
 
   const handleSelectCity = (

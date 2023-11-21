@@ -2,9 +2,18 @@ export const capitalizeFirstLetter = (string: string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export const formatDate = (dateToFormat: Date) => {
+export const formatDateToString = (dateToFormat: Date) => {
   const date = new Date(dateToFormat);
   return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()} ${date.getHours()}:${
+    date.getMinutes().toString().length <= 1
+      ? "0" + date.getMinutes()
+      : date.getMinutes()
+  }`;
+};
+
+export const formatDateToStringOnlyTime = (dateToFormat: Date) => {
+  const date = new Date(dateToFormat);
+  return `${date.getHours()}:${
     date.getMinutes().toString().length <= 1
       ? "0" + date.getMinutes()
       : date.getMinutes()

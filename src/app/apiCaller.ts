@@ -1,6 +1,6 @@
 import { Register, useQuery, UseQueryResult } from "@tanstack/react-query";
 import { GeoData } from "./types/types";
-import { formatDate } from "./utils/dateUtils";
+import { formatDateToMMDDYYYYFormat } from "./utils/dateUtils";
 
 export const fetchData = (): UseQueryResult<
   GeoData[],
@@ -22,7 +22,7 @@ export const fetchDataBy = (
   key: "city" | "school",
   value: string,
   queryKey: [string, Date],
-  date: string = formatDate(),
+  date: string = formatDateToMMDDYYYYFormat(),
 ): UseQueryResult<
   GeoData[],
   Register extends { defaultError: infer TError } ? TError : Error
