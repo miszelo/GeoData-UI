@@ -1,6 +1,6 @@
 export type GeoData = {
-  place: Types;
-  timestamp: string;
+  place: Place;
+  timestamp: Date;
   pm10: number;
   pm25: number;
   humidity: number;
@@ -8,7 +8,7 @@ export type GeoData = {
   temperature: number;
 };
 
-export type Types = {
+export type Place = {
   name: string;
   city: string;
   street: string;

@@ -6,6 +6,7 @@ import { GeoData } from "../../types/types.ts";
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import { getIconUrl } from "./mapUtils";
+import { formatDate } from "../../utils/stringUtils";
 
 type props = {
   isLoading: boolean;
@@ -45,16 +46,7 @@ export const Map: FC<props> = ({ isLoading, error, data }) => {
               >
                 <Popup>
                   <h3>{data.place.name}</h3>
-                  <h4>
-                    Aktualne dane: {new Date(data.timestamp).getDate()}-
-                    {new Date(data.timestamp).getMonth()}-
-                    {new Date(data.timestamp).getFullYear()}{" "}
-                    {new Date(data.timestamp).getHours()}:
-                    {new Date(data.timestamp).getMinutes().toString().length <=
-                    1
-                      ? "0" + new Date(data.timestamp).getMinutes()
-                      : new Date(data.timestamp).getMinutes()}
-                  </h4>
+                  <h4>Aktualne dane: {formatDate(data.timestamp)}</h4>
                   <p>
                     PM10: {data.pm10.toPrecision(data.pm10 > 10 ? 4 : 3)} µg/m³
                   </p>

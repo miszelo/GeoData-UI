@@ -85,7 +85,7 @@ export const ChartContent: FC<props> = ({ cities }) => {
         />
         <DatePicker
           selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
+          onChange={setSelectedDate}
           dateFormat="yyyy/MM/dd"
           placeholderText="Wybierz datę"
           maxDate={new Date()}
