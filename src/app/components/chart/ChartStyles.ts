@@ -9,6 +9,7 @@ export const ChartContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
 `;
 
 export const SelectContainer = styled.div`

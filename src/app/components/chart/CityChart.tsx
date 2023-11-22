@@ -16,7 +16,7 @@ type props = {
   cities: string[];
 };
 
-export const ChartContent: FC<props> = ({ cities }) => {
+export const CityChart: FC<props> = ({ cities }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
   const [selectedType, setSelectedType] = useState(dataTypes[0]);
   const [selectedOption, setSelectedOption] = useState<
