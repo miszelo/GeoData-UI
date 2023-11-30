@@ -21,5 +21,6 @@ export const DatePickerRange: FC<Props> = ({startDate, onChange, endDate}) => {
         showMonthDropdown
         showYearDropdown
         dropdownMode="scroll"
+        wrapperClassName="datePicker"
     />;
 }

@@ -17,5 +17,6 @@ export const DatePickerNormal: FC<Props> = ({selectedDate, setSelectedDate}) => 
         showMonthDropdown
         showYearDropdown
         dropdownMode="scroll"
+        wrapperClassName="datePicker"
     />;
 }

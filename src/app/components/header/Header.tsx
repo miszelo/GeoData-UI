@@ -9,11 +9,10 @@ import {
 export const Header: FC = () => {
   return (
     <HeaderContainer>
-      <Logo src={"/PK_SYGNET_RGB.png"} height={"50vh"} />
+      <Logo/>
       <TitleSection>
         <HeaderText href={"#Map"}>Mapa</HeaderText>
-        <HeaderText href={"#Chart"}>Wykres</HeaderText>
-        <HeaderText href={"#About"}>O projekcie</HeaderText>
+        <HeaderText href={"#Chart"}>Wykresy</HeaderText>
       </TitleSection>
     </HeaderContainer>
   );
