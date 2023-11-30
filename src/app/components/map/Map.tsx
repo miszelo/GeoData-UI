@@ -5,7 +5,7 @@ import "../../../../index.css";
 import { GeoData } from "../../types/types.ts";
 import "leaflet/dist/leaflet.css";
 import { getIcon } from "../../utils/mapUtils";
-import { formatDateToString } from "../../utils/stringUtils";
+import { formatDateToStringFull } from "../../utils/stringUtils";
 import { StyledPopup } from "./MapStyles";
 
 type props = {
@@ -43,7 +43,7 @@ export const Map: FC<props> = ({ isLoading, error, data }) => {
                   <Popup>
                     <StyledPopup>
                       <h3>{data.place.name}</h3>
-                      <h4>Dane z {formatDateToString(data.timestamp)}</h4>
+                      <h4>Dane z {formatDateToStringFull(data.timestamp)}</h4>
                       <table>
                         <tbody>
                           <tr>

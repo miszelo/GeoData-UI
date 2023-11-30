@@ -9,6 +9,8 @@ import Select, { SingleValue } from "react-select";
 import { SchoolChart } from "../chart/SchoolChart";
 import { useState } from "react";
 import { SelectType } from "../../types/types";
+import {CityChartByDateRange} from "../chart/CityChartDateRange";
+import {SchoolChartByDateRange} from "../chart/SchoolSchartByDateRange";
 
 export const Main = () => {
   const { isLoading, error, data, isFetched } = fetchData();
@@ -46,6 +48,22 @@ export const Main = () => {
           <SchoolChart schools={schools} />
         )}
       </ChartContainer>
+        <ChartContainer>
+            {isFetched && <ChartTitle>Wykres</ChartTitle>}
+            <Select
+                options={[
+                    { label: "Miasto", value: 0 },
+                    { label: "Szkoła", value: 1 },
+                ]}
+                onChange={handleSelectChartType}
+                defaultValue={selectedChart}
+            ></Select>
+            {isFetched && selectedChart.value === 0 ? (
+                <CityChartByDateRange cities={cities} />
+            ) : (
+                <SchoolChartByDateRange schools={schools} />
+            )}
+        </ChartContainer>
     </MainContainer>
   );
 };
