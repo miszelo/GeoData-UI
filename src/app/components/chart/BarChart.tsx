@@ -5,7 +5,7 @@ import {GeoData} from "../../types/types";
 import {FC} from "react";
 import {formatDateToStringOnlyDate, formatDateToStringOnlyTime} from "../../utils/stringUtils";
 
-type props = {
+type Props = {
     isLoading: boolean;
     error: Error | null;
     data: GeoData[];
@@ -13,7 +13,7 @@ type props = {
     byDateRange?: boolean;
 };
 
-export const BarChart: FC<props> = ({isLoading, error, data, dataType, byDateRange}) => {
+export const BarChart: FC<Props> = ({isLoading, error, data, dataType, byDateRange}) => {
     if (isLoading) return "Loading...";
 
     if (error) return "An error has occurred: " + error.message;

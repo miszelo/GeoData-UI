@@ -2,7 +2,7 @@ import { Map } from "../map/Map";
 import { ChartContainer, ChartTitle } from "../chart/ChartStyles";
 import { MapContainer, MapTitle } from "../map/MapStyles";
 import { MainContainer } from "./MainStyles";
-import { fetchData } from "../../apiCaller";
+import { fetchData } from "../api/apiCaller";
 import { CityChart } from "../chart/CityChart";
 import { capitalizeFirstLetter } from "../../utils/stringUtils";
 import Select, { SingleValue } from "react-select";

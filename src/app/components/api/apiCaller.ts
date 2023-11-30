@@ -1,6 +1,6 @@
 import {Register, useQuery, UseQueryResult} from "@tanstack/react-query";
-import {GeoData} from "./types/types";
-import {formatDateToMMDDYYYYFormat} from "./utils/dateUtils";
+import {GeoData} from "../../types/types";
+import {formatDateToMMDDYYYYFormat} from "../../utils/dateUtils";
 
 export const fetchData = (): UseQueryResult<
     GeoData[],

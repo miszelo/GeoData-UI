@@ -1,18 +1,17 @@
 import {FC, useState} from "react";
 import {SelectType} from "../../types/types";
-import {fetchDataByDateRange} from "../../apiCaller";
+import {fetchDataByDateRange} from "../api/apiCaller";
 import {formatDateToMMDDYYYYFormat} from "../../utils/dateUtils";
 import Select, {SingleValue} from "react-select";
 import {SelectContainer} from "./ChartStyles";
-import DatePicker from "react-datepicker";
 import {BarChart} from "./BarChart";
 import {dataTypes} from "../../utils/chartUtils";
-import {addDays} from "date-fns";
+import {DatePickerRange} from "./DatePickerRange";
 
-type props = {
+type Props = {
     schools: string[];
 };
-export const SchoolChartByDateRange: FC<props> = ({schools}) => {
+export const SchoolChartByDateRange: FC<Props> = ({schools}) => {
     const [startDate, setStartDate] = useState(() => {
         const defaultStartDate = new Date();
         defaultStartDate.setDate(defaultStartDate.getDate() - 30);
@@ -67,22 +66,7 @@ export const SchoolChartByDateRange: FC<props> = ({schools}) => {
                     defaultValue={dataTypes[0]}
                     onChange={handleSelectType}
                 />
-                <DatePicker
-                    selected={startDate}
-                    onChange={onChange}
-                    startDate={startDate}
-                    endDate={endDate}
-                    excludeDates={[addDays(new Date(), 1), addDays(new Date(), 5)]}
-                    selectsRange
-                    dateFormat="yyyy/MM/dd"
-                    placeholderText="Wybierz datę"
-                    maxDate={new Date()}
-                    locale="pl"
-                    todayButton="Dziś"
-                    showMonthDropdown
-                    showYearDropdown
-                    dropdownMode="scroll"
-                />
+                <DatePickerRange startDate={startDate} endDate={endDate} onChange={onChange}/>
             </SelectContainer>
             {data && (
                 <BarChart
