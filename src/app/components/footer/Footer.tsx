@@ -1,12 +1,11 @@
-import { FC } from "react";
-import { FooterContainer } from "./FooterContainer";
+import {FC} from "react";
+import {FooterContainer} from "./FooterContainer";
+import {Logo} from "../header/HeaderStyles";
 
 export const Footer: FC = () => {
-  return (
-    <FooterContainer>
-      <a>Footer</a>
-      <a>Footer</a>
-      <a>Footer</a>
-    </FooterContainer>
-  );
+    return (
+        <FooterContainer>
+            <Logo/>
+        </FooterContainer>
+    );
 };
