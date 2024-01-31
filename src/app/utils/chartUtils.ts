@@ -1,4 +1,4 @@
-export const filterRepeatedDates = (value: any, index: any, self: any) => {
+export const filterRepeatedValues = (value: any, index: any, self: any) => {
   return self.indexOf(value) === index;
 };
 

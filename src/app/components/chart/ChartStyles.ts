@@ -30,4 +30,8 @@ export const SelectContainer = styled.div`
     width: 100%;
   }
 `;
-export const ChartTitle = styled.h3``;
+export const ChartTitle = styled.h3`
+  @media (max-width: ${mobileBreakpoint}) {
+    max-width: 80%;
+    text-align: center;
+  }`;

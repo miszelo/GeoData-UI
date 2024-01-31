@@ -5,7 +5,7 @@ import {formatDateToMMDDYYYYFormat} from "../../utils/dateUtils";
 import Select, {SingleValue} from "react-select";
 import {SelectContainer} from "./ChartStyles";
 import {BarChart} from "./BarChart";
-import {dataTypes} from "../../utils/chartUtils";
+import {dataTypes, filterRepeatedValues} from "../../utils/chartUtils";
 import {DatePickerRange} from "./DatePickerRange";
 
 type Props = {
@@ -30,7 +30,7 @@ export const SchoolChartByDateRange: FC<Props> = ({schools}) => {
     >({label: schools[0], value: 0});
     const schoolOptions =
         schools &&
-        schools.map((it, index) => {
+        schools.filter(filterRepeatedValues).map((it, index) => {
             return {label: it, value: index};
         });
 
@@ -52,11 +52,17 @@ export const SchoolChartByDateRange: FC<Props> = ({schools}) => {
     ) => {
         newValue && setSelectedType(newValue);
     };
+    const maxLength = Math.max(...schoolOptions.map((option) => option.label.length));
 
+    const customStyles = {
+        // Set the minimum width based on the length of the longest city name
+        control: (provided) => ({ ...provided, minWidth: `${maxLength}px` }), // You may adjust the multiplier based on your needs
+    };
     return (
         <>
             <SelectContainer>
                 <Select
+                    styles={customStyles}
                     options={schoolOptions}
                     onChange={handleSelectSchool}
                     defaultValue={schoolOptions[0]}

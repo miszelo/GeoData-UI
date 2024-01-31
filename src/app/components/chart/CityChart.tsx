@@ -6,7 +6,7 @@ import {SelectContainer} from "./ChartStyles";
 import {registerLocale} from "react-datepicker";
 import pl from "date-fns/locale/pl";
 import "react-datepicker/dist/react-datepicker.css";
-import {dataTypes} from "../../utils/chartUtils";
+import {dataTypes, filterRepeatedValues} from "../../utils/chartUtils";
 import {SelectType} from "../../types/types";
 import {formatDateToMMDDYYYYFormat} from "../../utils/dateUtils";
 import {DatePickerNormal} from "./DatePicker";
@@ -26,7 +26,7 @@ export const CityChart: FC<Props> = ({cities}) => {
 
     const cityOptions =
         cities &&
-        cities.map((it, index) => {
+        cities.filter(filterRepeatedValues).map((it, index) => {
             return {label: it, value: index};
         });
 
@@ -48,11 +48,17 @@ export const CityChart: FC<Props> = ({cities}) => {
     ) => {
         newValue && setSelectedType(newValue);
     };
+    const maxLength = Math.max(...cityOptions.map((option) => option.label.length));
 
+    const customStyles = {
+        // Set the minimum width based on the length of the longest city name
+        control: (provided) => ({ ...provided, minWidth: `${maxLength * 8}px` }), // You may adjust the multiplier based on your needs
+    };
     return (
         <>
             <SelectContainer>
                 <Select
+                    styles={customStyles}
                     options={cityOptions}
                     onChange={handleSelectCity}
                     defaultValue={cityOptions[0]}

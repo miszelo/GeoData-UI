@@ -4,7 +4,7 @@ import "chart.js/auto";
 import {GeoData} from "../../types/types";
 import {FC} from "react";
 import {formatDateToStringOnlyDate, formatDateToStringOnlyTime} from "../../utils/stringUtils";
-import {filterRepeatedDates} from "../../utils/chartUtils";
+import {filterRepeatedValues} from "../../utils/chartUtils";
 
 type Props = {
     isLoading: boolean;
@@ -24,7 +24,7 @@ export const BarChart: FC<Props> = ({isLoading, error, data, dataType, byDateRan
                 data={{
                     labels: data
                         .map((it: GeoData) => byDateRange ? formatDateToStringOnlyDate(it.timestamp) : formatDateToStringOnlyTime(it.timestamp))
-                        .filter(filterRepeatedDates),
+                        .filter(filterRepeatedValues),
                     datasets: [
                         {
                             label: dataType.label,

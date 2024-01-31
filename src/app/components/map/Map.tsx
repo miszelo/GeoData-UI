@@ -24,7 +24,7 @@ export const Map: FC<props> = ({ isLoading, error, data }) => {
       <MapContainer
         className={"map"}
         center={[52.112795, 19.211946]}
-        zoom={6}
+        zoom={7}
         maxZoom={20}
         scrollWheelZoom={true}
       >

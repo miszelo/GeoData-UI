@@ -16,6 +16,7 @@ export const MapContainer = styled.div`
 `;
 
 export const MapTitle = styled.h3`
+  
 `;
 
 export const StyledPopup = styled.div`
